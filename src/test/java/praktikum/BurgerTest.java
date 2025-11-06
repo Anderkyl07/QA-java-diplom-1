@@ -62,7 +62,7 @@ public class BurgerTest {
         burger.addIngredient(mockIngredient2);
         burger.addIngredient(mockIngredient3);
 
-        // Move ingredient from index 0 to index 2
+
         burger.moveIngredient(0, 2);
 
         assertEquals("First ingredient should be moved", mockIngredient2, burger.ingredients.get(0));
@@ -72,7 +72,7 @@ public class BurgerTest {
 
     @Test
     public void testGetPrice() {
-        // Настраиваем заглушки только для этого теста
+
         when(mockBun.getPrice()).thenReturn(100.0f);
         when(mockIngredient1.getPrice()).thenReturn(50.0f);
         when(mockIngredient2.getPrice()).thenReturn(30.0f);
@@ -81,7 +81,6 @@ public class BurgerTest {
         burger.addIngredient(mockIngredient1);
         burger.addIngredient(mockIngredient2);
 
-        // Bun price * 2 + ingredient1 price + ingredient2 price
         float expectedPrice = (100.0f * 2) + 50.0f + 30.0f;
 
         assertEquals("Price calculation should be correct", expectedPrice, burger.getPrice(), 0.001);
@@ -89,7 +88,7 @@ public class BurgerTest {
 
     @Test
     public void testGetReceipt() {
-        // Настраиваем заглушки только для этого теста
+
         when(mockBun.getName()).thenReturn("black bun");
         when(mockBun.getPrice()).thenReturn(100.0f);
         when(mockIngredient1.getName()).thenReturn("cheese");
@@ -112,7 +111,7 @@ public class BurgerTest {
 
     @Test
     public void testGetPriceWithNoIngredients() {
-        // Настраиваем заглушку только для этого теста
+
         when(mockBun.getPrice()).thenReturn(100.0f);
 
         burger.setBuns(mockBun);
@@ -163,7 +162,7 @@ public class BurgerTest {
         assertTrue("Receipt should contain sauce", receipt.contains("sauce hot sauce"));
         assertTrue("Receipt should contain filling", receipt.contains("filling cutlet"));
         assertTrue("Receipt should contain total price", receipt.contains("Price:"));
-        // Не проверяем точную цену, только что она есть
+
     }
 
     @Test
@@ -171,7 +170,7 @@ public class BurgerTest {
         burger.addIngredient(mockIngredient1);
         burger.addIngredient(mockIngredient2);
 
-        // Перемещаем на ту же позицию
+
         burger.moveIngredient(0, 0);
 
         assertEquals("First ingredient should stay", mockIngredient1, burger.ingredients.get(0));
