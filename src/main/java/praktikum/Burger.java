@@ -49,7 +49,7 @@ public class Burger {
         }
 
         receipt.append(String.format("(==== %s ====)%n", bun.getName()));
-        receipt.append(String.format("%nPrice: %f%n", getPrice()));
+        receipt.append(String.format("%nPrice: %.0f%n", getPrice())); // Изменили %f на %.0f
 
         return receipt.toString();
     }
