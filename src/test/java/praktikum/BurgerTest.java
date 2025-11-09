@@ -88,13 +88,14 @@ public class BurgerTest {
 
     @Test
     public void testGetReceipt() {
-
         when(mockBun.getName()).thenReturn("black bun");
         when(mockBun.getPrice()).thenReturn(100.0f);
         when(mockIngredient1.getName()).thenReturn("cheese");
         when(mockIngredient1.getType()).thenReturn(IngredientType.FILLING);
+        when(mockIngredient1.getPrice()).thenReturn(50.0f);
         when(mockIngredient2.getName()).thenReturn("ketchup");
         when(mockIngredient2.getType()).thenReturn(IngredientType.SAUCE);
+        when(mockIngredient2.getPrice()).thenReturn(30.0f);
 
         burger.setBuns(mockBun);
         burger.addIngredient(mockIngredient1);
@@ -103,10 +104,17 @@ public class BurgerTest {
         String receipt = burger.getReceipt();
 
         assertNotNull("Receipt should not be null", receipt);
-        assertTrue("Receipt should contain bun name", receipt.contains("black bun"));
-        assertTrue("Receipt should contain ingredient names", receipt.contains("cheese"));
-        assertTrue("Receipt should contain ingredient names", receipt.contains("ketchup"));
-        assertTrue("Receipt should contain price", receipt.contains("Price:"));
+
+
+        String expectedReceipt =
+                "(==== black bun ====)" + System.lineSeparator() +
+                        "= filling cheese =" + System.lineSeparator() +
+                        "= sauce ketchup =" + System.lineSeparator() +
+                        "(==== black bun ====)" + System.lineSeparator() +
+                        System.lineSeparator() +
+                        "Price: 280" + System.lineSeparator(); // ← ИСПРАВИЛИ 330 на 280
+
+        assertEquals("Receipt should have correct format", expectedReceipt, receipt);
     }
 
     @Test
@@ -134,12 +142,12 @@ public class BurgerTest {
 
         String receipt = burger.getReceipt();
 
-        // Проверяем полный формат чека
+
         assertTrue("Receipt should contain top bun", receipt.contains("(==== black bun ====)"));
         assertTrue("Receipt should contain ingredient line", receipt.contains("= filling cheese ="));
         assertTrue("Receipt should contain bottom bun", receipt.contains("(==== black bun ====)"));
         assertTrue("Receipt should contain price", receipt.contains("Price:"));
-        // Не проверяем точную цену, только что она есть
+
     }
 
     @Test
